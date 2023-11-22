@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const create_ninja_dto_1 = require("./dto/create-ninja.dto");
 const update_ninja_dto_1 = require("./dto/update-ninja.dto");
 const ninjas_service_1 = require("./ninjas.service");
+const belt_guard_1 = require("../belt/belt.guard");
 let NinjasController = class NinjasController {
     constructor(ninjasService) {
         this.ninjasService = ninjasService;
@@ -25,7 +26,12 @@ let NinjasController = class NinjasController {
         return this.ninjasService.getNinjas(weapon);
     }
     getOneNinja(id) {
-        return this.ninjasService.getNinja(+id);
+        try {
+            return this.ninjasService.getNinja(+id);
+        }
+        catch (err) {
+            throw new common_1.NotFoundException();
+        }
     }
     createNinja(createNinjaDto) {
         return this.ninjasService.createNinja(createNinjaDto);
@@ -34,7 +40,7 @@ let NinjasController = class NinjasController {
         return this.ninjasService.updateNinja(+id, updateNinjaDto);
     }
     removeNinja(id) {
-        return this.ninjasService.removeNinja(+id);
+        return this.ninjasService.removeNinja(id);
     }
 };
 exports.NinjasController = NinjasController;
@@ -54,7 +60,8 @@ __decorate([
 ], NinjasController.prototype, "getOneNinja", null);
 __decorate([
     (0, common_1.Post)(),
-    __param(0, (0, common_1.Body)()),
+    (0, common_1.UseGuards)(belt_guard_1.BeltGuard),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_ninja_dto_1.CreateNinjaDto]),
     __metadata("design:returntype", void 0)
@@ -69,9 +76,9 @@ __decorate([
 ], NinjasController.prototype, "updateNinja", null);
 __decorate([
     (0, common_1.Delete)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", void 0)
 ], NinjasController.prototype, "removeNinja", null);
 exports.NinjasController = NinjasController = __decorate([

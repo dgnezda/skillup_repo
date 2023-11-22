@@ -24,7 +24,7 @@ export declare class NinjasController {
         name: string;
         weapon: string;
     };
-    removeNinja(id: string): {
+    removeNinja(id: number): {
         id: number;
         name: string;
         weapon: string;
