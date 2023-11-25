@@ -28,13 +28,14 @@ export class BoardsService {
         const found = this.boards.find(board => board.id === id);
 
         if (!found) {
-            throw new NotFoundException(`No can do, broski. Yo borad wizz id ${id} is not it`);
+            throw new NotFoundException(`No can do, broski. Yr board wiz id ${id} is not it`);
         }
         return found;
     }
 
     deleteBoard(id: string): void {
-        this.boards = this.boards.filter(board => board.id !== id);
+        const found = this.getBoardById(id);
+        this.boards = this.boards.filter(board => board.id !== found.id);
     }
 
     updateBoardStatus(id: string, status: BoardStatus): Board {
