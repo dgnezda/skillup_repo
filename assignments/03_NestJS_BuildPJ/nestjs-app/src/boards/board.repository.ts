@@ -1,14 +1,20 @@
-import { DataSource, Repository } from "typeorm";
+import { EntityRepository, Repository } from "typeorm";
 import { Board } from "./board.entity"
-import { Injectable } from "@nestjs/common";
+import { CreateBoardDto } from "./dto/create-board.dto";
 
-@Injectable() // Use Repository.extend?
+@EntityRepository() // TODO: deprecated decorator, use Repository.extend? -> check docs!
 export class BoardRepository extends Repository<Board> {
-    constructor(private dataSource: DataSource) {
-        super(Board, dataSource.createEntityManager());
-    }
+    async createBoard(createBoardDto: CreateBoardDto, user: User) : Promise<Board> {
+        const {title, description} = createBoardDto;
 
-    async getById(id: number) {
-        return this.findOne({where: { id }});
+        const board = this.create({ 
+            title, 
+            description,
+            status: BoardStatus.PUBLIC,
+            user
+        })
+
+        await this.save(board);
+        return board;
     }
 }
