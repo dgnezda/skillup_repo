@@ -1,6 +1,7 @@
 import { EntityRepository, Repository } from "typeorm";
 import { Board } from "./board.entity"
 import { CreateBoardDto } from "./dto/create-board.dto";
+import { User } from "src/auth/user.entity";
 
 @EntityRepository() // TODO: deprecated decorator, use Repository.extend? -> check docs!
 export class BoardRepository extends Repository<Board> {
