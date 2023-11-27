@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free web tutorial">
+    <meta name="keywords" content="HTML,CSS,XML,JavaScript">
+    <meta name="author" content="John Doe">
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <style>
+        .background{
+            background-color: black;
+            color: blanchedalmond;
+        }
+    </style>
+    <title>Test site</title>
+</head>
+<body>
+    <!-- Heading examples -->
+    <h1>Hello Lotmerk</h1>
+    <h2>Hello Lotmerk</h2>
+    <h3>Hello Lotmerk</h3>
+    <h4>Hello Lotmerk</h4>
+    <h5>Hello Lotmerk</h5>
+    <h6>Hello Lotmerk</h6>
+    <hr>
+
+    <!-- Paragraph Examples -->
+    <div> 
+        <p title="This is a tooltip">Tekst <br>
+            Lorem <strong>ipsum </strong> sit, amet <em>consectetur </em> elit. Aspernatur provident<sub> eius culpa?</sub> Dolore <sup>iusto </sup>et sapiente non. Ut laboriosam aspernatur magnam doloribus, odio alias autem non exercitationem nulla! Eaque, odio!
+        </p>
+        <p>Tekst <br>
+            Lorem ipsum dolor sit, amet consectetur<mark> adipisicing elit. Aspernatur </mark>provident eius culpa? <small>Dolore</small> iusto et sapiente non. Ut laboriosam aspernatur magnam doloribus, odio alias autem non exercitationem nulla! Eaque, odio!
+        </p>
+        <p class="background">Tekst <br>
+            <span style="color: chocolate;">Lorem ipsum dolor</span> sit, amet <del> adipisicing elit. </del>Aspernatur<ins> provident eius </ins>culpa? Dolore iusto et sapiente non. Ut laboriosam aspernatur magnam doloribus, odio alias autem non exercitationem nulla! Eaque, odio!
+        </p>
+    </div>
+    <hr>
+    <!-- Links -->
+    <a href="#bookmark">
+        <img src="missing.jpg" alt="missing img but goes down" width="400">
+    </a>
+    <br>
+    <a href="https://www.google.com">Google</a>
+    <br><br><br>
+    <a href="https://www.google.com" target="_blank">Google in a new window</a>
+    
+    <p id="bookmark">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cupiditate laudantium repellendus magnam aliquam dignissimos eum quis vel ad obcaecati blanditiis. Magni consectetur ducimus molestiae aliquid, aspernatur corporis eos alias harum!</p>
+    <hr>
+    <!-- List Examples -->
+    <ul>
+        <li>List item 1</li>
+        <li>List item 2</li>
+        <li>List item 3</li>
+        <li>List item 4</li>
+    </ul>
+
+    <ol type="1" start="4">
+        <li>List item 1</li>
+        <li>List item 1</li>
+        <li>List item 1</li>
+        <li>List item 1</li>
+        <li>List item 1</li>
+            <ul>
+                <li>asd</li>
+                <li>asd</li>
+                <li>asd</li>
+            </ul>
+        <li>asd</li>
+    </ol>
+    <br>
+    <hr>
+    <br>
+
+    <!-- Table Examples -->
+    <table>
+        <caption>Caption of</caption>
+        <thead>
+            <tr>
+                <th>First</th>
+                <th>Last</th>
+                <th>Age</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Janez</td>
+                <td>Novak</td>
+                <td>23</td>
+            </tr>
+            <tr>
+                <td>Janez</td>
+                <td>Novak</td>
+                <td>24</td>
+            </tr>
+            <tr>
+                <td>Janez</td>
+                <td>Novak</td>
+                <td>34</td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <br>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th colspan="2">Tel</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Franc</td>
+                <td>123 123 123</td>
+                <td>34 345 345</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br><br>
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <td>Json AAA</td>
+        </tr>
+        <tr>
+            <th rowspan="2">Fon:</th>
+            <td>111 111 111 1</td>
+        </tr>
+        <tr>
+            <td>3333 333 3 333</td>
+        </tr>
+    </table>
+    <br><br><hr><br>
+
+    <!-- Form Example -->
+    <form action="server.php">
+        <fieldset>
+            <legend>Personal info:</legend>
+            First Name: <br>
+            <input type="text" name="fistname" value="" placeholder="Input first name"><br>
+            Last Name: <br>
+            <input type="text" name="lastname" value="" placeholder="Input last nom"><br>
+            <input type="radio" name="options"> Option 1
+            <input type="radio" name="options"> Option 2
+            <input type="radio" name="options"> Option 3<br>
+            <input type="checkbox" name="checkboxes"> Checkbox 1
+            <input type="checkbox" name="checkboxes" checked> Checkbox 2
+            <input type="checkbox" name="checkboxes"> Checkbox 3
+            <input type="checkbox" name="checkboxes"> Checkbox 4 <br>
+            <label for="carSelect">Select:</label>
+            <select name="cars" id="carSelect" multiple>
+                <option value="BMW">BMW</option>
+                <option value="VW">VW</option>
+                <option value="Volvo">Volvo</option>
+                <option value="Audi">Audi</option>
+            </select>
+            <br><br>
+            <input type="submit" value="Submit">
+        </fieldset>
+    </form>
+    <br>
+
+    <!-- Button -->
+    <button>Click me</button><!-- Does nothing -->
+</body>
+</html>
