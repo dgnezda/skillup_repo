@@ -1,0 +1,59 @@
+html {
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    background-color: slategrey;
+    color: white;
+}
+
+h1 {
+    font-weight: 100;
+    font-size: 3rem;
+}
+
+.grid-item {
+    font-size: 2rem;
+    background-color: skyblue;
+    padding: 5px 10px;
+    border: 1px solid white;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 200px 250px; /* repeat(4, 100px); */
+    grid-auto-rows: minmax(150px, auto);
+
+    /* grid-auto-rows: 150px; makes all rows 150px
+    grid-template-rows: 200px; makes first row 200px, all following still default to 150 */
+
+    grid-gap: 20px;
+
+    /* grid-template-areas: 
+        "header header"
+        "sidebar content"
+        "sidebar content" */
+
+    justify-content: center;
+    align-content: center;
+    height: 100vh; /* vh = view height */
+}
+
+.grid-item-1 {
+    grid-column: span 2; /* 1 is default */
+    /* ALL OF BELOW DO THE SAME AS ABOVE
+    grid-column: 1 / -1; */
+    /* grid-column-start: 1;
+    grid-column-end: -1; */
+
+    /* align-self: start;
+    justify-self: center; */
+}
+
+.grid-item-2 {
+    grid-row: span 2;
+    /* grid-row-start: 2;
+    grid-row-end: 4; */
+}
+
+.grid-item-3 {
+    grid-row: span 1;
+}
