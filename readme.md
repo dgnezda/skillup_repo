@@ -4,3 +4,4 @@
 2. NestJS - Authentication
 3. NestJS - Build Project
 4. Html crash course
+5. CSS crash course
