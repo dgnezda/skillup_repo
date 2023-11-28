@@ -1,3 +1,3 @@
 # Website:
 
-https://loruki-web5.netlify.app
+http://loruki-www.netlify.app
