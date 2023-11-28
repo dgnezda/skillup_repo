@@ -3,6 +3,11 @@
 /* Define a variable to use in the root scope: */
 :root { 
     --primary-color: #047aed; /* type var(--primary-color) to use it */
+    --secondary-color: #1c3fa8;
+    --dark-color: #002240;
+    --light-color: #f4f4f4;
+    --success-color: #5cb85c;
+    --error-color: #d9534f;
 }
 
 * {
@@ -38,6 +43,12 @@ p {
 
 img {
     width: 100%;
+}
+
+code, pre {
+    background: #333;
+    color: #fff;
+    padding: 10px;
 }
 
 /* Navbar */
@@ -163,4 +174,143 @@ img {
 /* Cloud */
 .cloud .grid {
     grid-template-columns: 4fr 3fr;
+}
+
+/* Languages */
+.languages .flex {
+    flex-wrap: wrap;
+}
+
+.languages .card {
+    text-align: center;
+    margin: 18px 10px 40px;
+    transition: transform 0.2s ease-in;
+}
+
+.languages .card h4 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.languages .card:hover {
+    transform: translateY(-15px);
+}
+
+/* Features */
+.features-head img, .docs-head img {
+    width: 200px;
+    justify-self: flex-end;
+}
+
+.features-sub-head img {
+    width: 300px;
+    justify-self: flex-end;
+}
+
+.features-main .card > i {
+    margin: 0 10px;
+}
+
+.features-main .grid {
+    padding: 30px;
+}
+
+.features-main .grid > *:first-child {
+    grid-column: 1 / span 3;
+}
+
+.features-main .grid > *:nth-child(2) {
+    grid-column: 1 / span 2;
+}
+
+/* Docs */
+.docs-main h3 {
+    margin: 20px 0;
+}
+
+.docs-main .grid {
+    grid-template-columns: 1fr 2fr;
+    align-items: flex-start;
+}
+
+.docs-main .nav li {
+    font-size: 17px;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    border-bottom: 1px #ccc solid;
+}
+
+.docs-main a:hover {
+    font-weight: bold;
+}
+
+/* Footer */
+.footer .social a {
+    margin:  0 10px;
+}
+
+/* Tablets and under */
+@media(max-width: 768px) {
+    .grid,
+    .showcase .grid,
+    .stats .grid,
+    .cli .grid,
+    .cloud .grid,
+    .features-main .grid,
+    .docs-main .grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
+    }
+
+    .showcase {
+        height: auto;
+    }
+
+    .showcase-text {
+        text-align: center;
+        margin-top: 40px;
+    }
+
+    .showcase-form {
+        justify-self: center;
+        margin: auto;
+    }
+
+    .cli .grid > *:first-child { /* To change the way image 'npm install...' and 2 cards position on grid */
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    .features-head,
+    .features-sub-head,
+    .docs-head {
+        text-align: center;
+    }
+
+    .features-head img,
+    .features-sub-head img,
+    .docs-head img{
+        justify-self: center;
+    }
+
+    .features-main .grid > *:first-child,
+    .features-main .grid > *:nth-child(2) {
+        grid-column: 1;
+    }
+}
+
+/* Mobile */
+@media(max-width: 500px) {
+    .navbar {
+        height: 110px;
+    }
+
+    .navbar .flex {
+        flex-direction: column;
+    }
+
+    .navbar ul {
+        padding: 10px;
+        background-color: rgba(0,0,0,0.1);
+    }
 }
