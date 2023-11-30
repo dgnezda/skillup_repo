@@ -9,6 +9,19 @@ class MyEmitter extends EventEmitter {};
 // initialize object
 const myEmitter = new MyEmitter();
 const PORT = process.env.PORT ||3000;
+const __dirname = import.meta.dirname; 
+
+const serveFile = async (filePath, contentType, response) => {
+    try {
+        const data = await fsPromises.readFile(filePath, 'utf8');
+        response.writeHead(200, {'Content-Type': contentType});
+        response.end(data);
+    } catch (err) {
+        console.log(err);
+        response.statusCode = 500;
+        response.end();
+    }
+}
 
 const server = http.createServer((req, res) => {
     console.log(req.url, req.method);
@@ -45,7 +58,31 @@ const server = http.createServer((req, res) => {
                     ? path.join(__dirname, 'views', req.url) // then the file should be in the views folder, hence path
                     : path.join(__dirname, req.url); // if not, then it's probably css or image or something else, we need the dirname/req.url path
     
-    if (!extension && req.url.slice(-1) !== '/')
+    // Makes the .html extension not required in the browser
+    if (!extension && req.url.slice(-1) !== '/') {// if there is no file extension and the last char is not a slash, so like 'about' or 'newpage' and we didn't/forgot to type the file extension
+        filePath += '.html'; // we add the .html to make it work
+    }
+
+    const fileExists = fs.existsSync(filePath);
+
+    if (fileExists) {
+        // serve the file
+        serveFile(filePath, contentType, res);
+    } else {
+        switch(path.parse(filePath).base) {
+            case 'old-page.html':
+                res.writeHead(301, {'Location': '/new-page.html'});
+                res.end();
+                break;
+            case 'www-page.html':
+                res.writeHead(301, {'Location': '/'});
+                res.end();
+                break;
+            default:
+                // serve a 404 response
+                serveFile(path.join(__dirname, 'views', '404.html'), 'test/html', res);
+        }
+    }
 });
 
 // Always put at the end of server.js:
