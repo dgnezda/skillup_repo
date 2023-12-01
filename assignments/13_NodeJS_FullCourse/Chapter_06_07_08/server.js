@@ -3,6 +3,8 @@ import cors from "cors";
 import * as path from "path";
 import { logger } from "./middleware/logEvents.js";
 import { errorHandler } from "./middleware/errorHandler.js";
+import { router as router1} from "./routes/root.js";
+import { router as router2} from "./routes/subdir.js";
 
 const app = express();
 const PORT = process.env.PORT ||3000;
@@ -31,48 +33,15 @@ app.use(express.urlencoded({ extended: false })); // app.use to apply middleware
 // built-in middleware for json, applied for all routes
 app.use(express.json());
 // serve static files (like css, images etc)
-app.use(express.static(path.join(__dirname, '/public')));
+app.use('/', express.static(path.join(__dirname, '/public')));
+app.use('/subdir', express.static(path.join(__dirname, '/public'))); // to make css and other files work for the subdirectory
 
-app.get('^/$|/index(.html)?', (req, res) => {
-    // res.sendFile('./views/index.html', { root: __dirname }); // or:
-    res.sendFile(path.join(__dirname, 'views', 'index.html'));
-});
+// routes
+app.use('/', router1);
+app.use('/subdir', router2);
+app.use('/employees', router3);
 
-app.get('/new-page(.html)?', (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'new-page.html'));
-});
-
-app.get('/old-page(.html)?', (req, res) => {
-    res.redirect(301, '/new-page.html'); // 302 by default, we want a 301 => put as first arg
-});
-
-// Route handlers
-app.get('/hello(.html)?', (req, res, next) => {
-    console.log('attempted to load hello.html');
-    next()
-}, (req, res) => {
-    res.send('Hello Worlda!');
-})
-
-// Chaining handlers:
-const one = (req, res, next) => {
-    console.log('one');
-    next();
-}
-
-const two = (req, res, next) => {
-    console.log('two');
-    next();
-}
-
-const three = (req, res) => {
-    console.log('three');
-    res.send("Finished");
-}
-
-app.get('/chain(.html)?', [one, two, three]);
-//
-
+// app.use() is for middleware app.all() is for routing and will apply to all http methods at once
 // Everything that made it to here should be a 404 error
 app.all('*', (req, res) => {
     res.status(404); // need to set to 404, otherwise it's 200
@@ -88,3 +57,35 @@ app.all('*', (req, res) => {
 app.use(errorHandler);
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+
+
+
+
+// EXAMPLES
+// // Route handlers
+// app.get('/hello(.html)?', (req, res, next) => {
+//     console.log('attempted to load hello.html');
+//     next()
+// }, (req, res) => {
+//     res.send('Hello Worlda!');
+// })
+
+// // Chaining handlers:
+// const one = (req, res, next) => {
+//     console.log('one');
+//     next();
+// }
+
+// const two = (req, res, next) => {
+//     console.log('two');
+//     next();
+// }
+
+// const three = (req, res) => {
+//     console.log('three');
+//     res.send("Finished");
+// }
+
+// app.get('/chain(.html)?', [one, two, three]);
+//
