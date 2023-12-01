@@ -1,4 +1,8 @@
-{
+[{
     "Name": "Batman",
     "Occupation": "Normal hero"
-}
+},
+{
+    "Name": "Superman",
+    "Occupation": "Superhero"
+}]

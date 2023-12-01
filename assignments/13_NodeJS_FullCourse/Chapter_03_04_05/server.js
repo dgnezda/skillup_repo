@@ -5,9 +5,10 @@ import * as fsPromises from "node:fs/promises";
 import { logEvents } from "./logEvents.js";
 import { EventEmitter } from 'events'; // const EventEmitter = require('events');
 
-class MyEmitter extends EventEmitter {};
+class Emitter extends EventEmitter {};
 // initialize object
-const myEmitter = new MyEmitter();
+const myEmitter = new Emitter();
+myEmitter.on('log', (msg, fileName) => logEvents(msg, fileName));
 const PORT = process.env.PORT ||3000;
 const __dirname = import.meta.dirname; 
 
@@ -15,16 +16,20 @@ const serveFile = async (filePath, contentType, response) => {
     try {
         const rawData = await fsPromises.readFile(
             filePath, 
-            !contentType.includes('image') ? 'utf8' : ''
+            !contentType.includes('image') ? 'utf8' : '' // a string is expected as second param in fsPromises.readFile. If it's not an image, use utf8, else empty string means just let the image go through normally
             );
         const data = contentType === 'application/json'
             ? JSON.parse(rawData) : rawData;
-        response.writeHead(200, {'Content-Type': contentType});
+        response.writeHead(
+            filePath.includes('404.html') ? 404 : 200, 
+            {'Content-Type': contentType}
+        );
         response.end(
             contentType === 'application/json' ? JSON.stringify(data) : data
         );
     } catch (err) {
         console.log(err);
+        myEmitter.emit('log', `${err.name}: ${err.message}`, 'errLog.txt');
         response.statusCode = 500;
         response.end();
     }
@@ -32,6 +37,9 @@ const serveFile = async (filePath, contentType, response) => {
 
 const server = http.createServer((req, res) => {
     console.log(req.url, req.method);
+
+    myEmitter.emit('log', `${req.url}\t${req.method}`, 'reqLog.txt');
+
     const extension = path.extname(req.url);
     let contentType;
 
@@ -47,6 +55,9 @@ const server = http.createServer((req, res) => {
             break;
         case '.jpg':
             contentType = 'image/jpeg';
+            break;
+        case '.png':
+            contentType = 'image/png';
             break;
         case '.txt':
             contentType = 'text/plain';
@@ -87,23 +98,20 @@ const server = http.createServer((req, res) => {
                 break;
             default:
                 // serve a 404 response
-                serveFile(path.join(__dirname, 'views', '404.html'), 'test/html', res);
+                serveFile(path.join(__dirname, 'views', '404.html'), 'text/html', res);
         }
     }
 });
-
 // Always put at the end of server.js:
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 
 
-
-
 // add listener for the log event
-// myEmitter.on('log', msg => logEvents(msg));
+// Emitter.on('log', msg => logEvents(msg));
 
 // Add delay time
 // setTimeout(() => {
 //     // Emit event
-//     myEmitter.emit('log', 'Log event emitted!');
+//     Emitter.emit('log', 'Log event emitted!');
 // }, 2000);
