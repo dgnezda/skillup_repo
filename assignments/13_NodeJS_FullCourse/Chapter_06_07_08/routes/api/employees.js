@@ -1,5 +1,5 @@
 import express from "express";
-import { employees } from "../../data/employees.json"
+import employees from "../../data/employees.json" assert { type: "json"};
 const __dirname = import.meta.dirname; 
 
 export const router = express.Router();

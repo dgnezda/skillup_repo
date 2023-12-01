@@ -5,6 +5,7 @@ import { logger } from "./middleware/logEvents.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 import { router as router1} from "./routes/root.js";
 import { router as router2} from "./routes/subdir.js";
+import { router as router3 } from "./routes/api/employees.js";
 
 const app = express();
 const PORT = process.env.PORT ||3000;
@@ -36,10 +37,10 @@ app.use(express.json());
 app.use('/', express.static(path.join(__dirname, '/public')));
 app.use('/subdir', express.static(path.join(__dirname, '/public'))); // to make css and other files work for the subdirectory
 
-// routes
-app.use('/', router1);
-app.use('/subdir', router2);
-app.use('/employees', router3);
+// routes                       // commonJS:
+app.use('/', router1);          // app.use('/', require('./routes/root));
+app.use('/subdir', router2);    // app.use('/subdir', require('./routes/subdir')); 
+app.use('/employees', router3); // app.use('/employees, require('./routes/api/employees')) ==> notice the /employees as first arg --- this allows users to access the employees without going into subfolders
 
 // app.use() is for middleware app.all() is for routing and will apply to all http methods at once
 // Everything that made it to here should be a 404 error
