@@ -1,0 +1,10 @@
+[{
+    "id": 1,
+    "name": "Batman",
+    "occupation": "Normal hero"
+},
+{
+    "id": 2,
+    "name": "Superman",
+    "occupation": "Superhero"
+}]
