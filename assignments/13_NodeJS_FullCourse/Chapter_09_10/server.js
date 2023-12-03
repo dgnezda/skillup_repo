@@ -3,8 +3,10 @@ import cors from "cors";
 import * as path from "path";
 import { logger } from "./middleware/logEvents.js";
 import { errorHandler } from "./middleware/errorHandler.js";
-import { router as router1} from "./routes/root.js";
-import { router as router2 } from "./routes/api/employees.js";
+import { router as rootRouter} from "./routes/root.js";
+import { router as employeesRouter } from "./routes/api/employees.js";
+import { router as registerRouter } from "./routes/register.js";
+import { router as authRouter } from "./routes/auth.js";
 import { corsOptions } from "./config/corsOptions.js";
 
 const app = express();
@@ -27,8 +29,10 @@ app.use(express.json());
 app.use('/', express.static(path.join(__dirname, '/public')));
 
 // routes                       
-app.use('/', router1);
-app.use('/employees', router2);
+app.use('/', rootRouter);
+app.use('/employees', employeesRouter);
+app.use('/register', registerRouter);
+app.use('/auth', authRouter);
 
 app.all('*', (req, res) => {
     res.status(404);
