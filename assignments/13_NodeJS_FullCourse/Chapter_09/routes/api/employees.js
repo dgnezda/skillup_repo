@@ -1,6 +1,5 @@
 import express from "express";
 import { createNewEmployee, deleteEmployee, getAllEmployees, getEmployee, updateEmployee } from "../../controllers/employeeController.js";
-const __dirname = import.meta.dirname; 
 
 export const router = express.Router();
 
