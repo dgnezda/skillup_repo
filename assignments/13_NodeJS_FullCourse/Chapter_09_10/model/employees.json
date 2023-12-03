@@ -7,4 +7,9 @@
     "id": 2,
     "name": "Superman",
     "occupation": "Superhero"
+},
+{
+    "id": 3,
+    "name": "Aquaman",
+    "occupation": "Superhero"
 }]
