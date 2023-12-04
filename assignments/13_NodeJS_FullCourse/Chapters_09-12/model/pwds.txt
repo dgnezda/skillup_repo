@@ -1,0 +1,9 @@
+{
+	"user": "alfred3",
+	"pwd": "buttlersUnited"
+}
+,
+{
+	"user": "walt2", "dave1 ...
+	"pwd": "Aa$12345"    
+}

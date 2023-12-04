@@ -22,6 +22,7 @@ export const handleLogin = async (req, res) => {
     // evaluate pwd
     const match = await bcrypt.compare(pwd, foundUser.password)
     if (match) {
+        const roles = Object.values(foundUser.roles);
         // create JWTs
         const accessToken = sign(
             {"username": foundUser.username},
@@ -29,7 +30,12 @@ export const handleLogin = async (req, res) => {
             { expiresIn: '30s' } // 5-15min for production
         );
         const refreshToken = sign(
-            {"username": foundUser.username},
+            { 
+                "UserInfo": {
+                    "username": foundUser.username,
+                    "roles": roles
+                }
+            },
             process.env.REFRESH_TOKEN_SECRET,
             { expiresIn: '1d' } // 5-15min for production
         );
