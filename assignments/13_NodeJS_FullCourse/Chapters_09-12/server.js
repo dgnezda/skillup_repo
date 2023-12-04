@@ -7,7 +7,12 @@ import { router as rootRouter} from "./routes/root.js";
 import { router as employeesRouter } from "./routes/api/employees.js";
 import { router as registerRouter } from "./routes/register.js";
 import { router as authRouter } from "./routes/auth.js";
+import { router as refreshRouter } from "./routes/refresh.js";
+import { router as logoutRouter } from "./routes/logout.js";
 import { corsOptions } from "./config/corsOptions.js";
+import { verifyJWT } from "./middleware/verifyJWT.js";
+import cookieParser from "cookie-parser";
+import { credentials } from "./middleware/credentials.js";
 
 const app = express();
 const PORT = process.env.PORT ||3000;
@@ -15,6 +20,10 @@ const __dirname = import.meta.dirname;
 
 // Custom middleware logger
 app.use(logger);
+
+// Handle options credentials check - before CORS!
+// and fetch cookies credentials requirements
+app.use(credentials);
 
 // Cross Origin Resource Sharing
 app.use(cors(corsOptions)); 
@@ -25,14 +34,21 @@ app.use(express.urlencoded({ extended: false }));
 // built-in middleware for json, applied for all routes
 app.use(express.json());
 
+// middleware for cookies
+app.use(cookieParser());
+
 // serve static files (like css, images etc)
 app.use('/', express.static(path.join(__dirname, '/public')));
 
-// routes                       
+// routes - work like waterfall - any rout you don't want verified by verifyJWT needs to come before line 37 (app.use(verifyJWT))                  
 app.use('/', rootRouter);
-app.use('/employees', employeesRouter);
 app.use('/register', registerRouter);
 app.use('/auth', authRouter);
+app.use('/refresh', refreshRouter);
+app.use('/logout', logoutRouter);
+
+app.use(verifyJWT);
+app.use('/employees', employeesRouter);
 
 app.all('*', (req, res) => {
     res.status(404);
