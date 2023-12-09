@@ -4,15 +4,25 @@ const router = express.Router()
 router.use(logger)
 
 router.get('/', (req, res) => {
+    console.log(req.query.name)
     res.send('User list')
 })
 
 router.get('/new', (req, res) => {
-    res.send('User new form')
+    res.render("users/new", { firstName: "poop" })
 })
 
 router.post('/', (req, res) => {
-    res.send('Create user')
+    const isValid = true
+    if (isValid) {
+        users.push({ firstName: req.body.firstName })
+        res.redirect(`/users/${users.length - 1}`)
+    } else {
+        console.log("Error");
+        res.render('users/new', { firstName: req.body.firstName })
+    }
+    console.log(req.body.firstName)
+    res.send('hi')
 })
 
 // get/put/delete requests for route /:id
