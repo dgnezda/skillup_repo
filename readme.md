@@ -13,3 +13,8 @@
 11. Node JS Crash Course 1
 12. Node JS Crash Course 2
 13. Node JS Full Course
+14. Learn Express JS
+15. TypeScript Crash Course Speedrun
+16. TypeScript Crash Course
+17. ReactJS Crash Course
+18. React TypeScript
