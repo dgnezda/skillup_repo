@@ -18,3 +18,5 @@
 16. TypeScript Crash Course
 17. ReactJS Crash Course
 18. React TypeScript
+19. Todo List with React and TypeScript
+20. Shopping Cart w/ React and TypeScript
